@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbConecction = async() => {
+const dbConnection = async() => {
 
     try {
         
@@ -19,5 +19,5 @@ const dbConecction = async() => {
 }
 
 module.exports = {
-    dbConecction,
+    dbConnection,
 }
