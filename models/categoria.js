@@ -1,6 +1,3 @@
-
-
-
 const { Schema, model } = require('mongoose');
 
 const CategoriaSchema = Schema({
@@ -12,14 +9,15 @@ const CategoriaSchema = Schema({
     estado: {
         type: Boolean,
         default: true,
-        require: true
+        required: true
     },
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
-        require: true
+        required: true
     }
 });
+
 
 CategoriaSchema.methods.toJSON = function() {
     const { __v, estado, ...data  } = this.toObject();

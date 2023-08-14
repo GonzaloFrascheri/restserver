@@ -1,5 +1,5 @@
-const { Categoria, Usuario, Producto } = require('../models');
 const Role = require('../models/role');
+const { Usuario, Categoria, Producto } = require('../models');
 
 const esRoleValido = async(rol = '') => {
 
@@ -9,8 +9,8 @@ const esRoleValido = async(rol = '') => {
     }
 }
 
-// Email
 const emailExiste = async( correo = '' ) => {
+
     // Verificar si el correo existe
     const existeEmail = await Usuario.findOne({ correo });
     if ( existeEmail ) {
@@ -18,8 +18,8 @@ const emailExiste = async( correo = '' ) => {
     }
 }
 
-// Usuario
 const existeUsuarioPorId = async( id ) => {
+
     // Verificar si el correo existe
     const existeUsuario = await Usuario.findById(id);
     if ( !existeUsuario ) {
@@ -27,29 +27,49 @@ const existeUsuarioPorId = async( id ) => {
     }
 }
 
-// Categoria
+/**
+ * Categorias
+ */
 const existeCategoriaPorId = async( id ) => {
-    // Verificar si existe categoria
+
+    // Verificar si el correo existe
     const existeCategoria = await Categoria.findById(id);
-    if( !existeCategoria ){
-        throw new Error(`El id ${id} de la categoría no existe`);
-    } 
+    if ( !existeCategoria ) {
+        throw new Error(`El id no existe ${ id }`);
+    }
 }
 
-// Productos
+/**
+ * Productos
+ */
 const existeProductoPorId = async( id ) => {
-    // Verificar si existe categoria
+
+    // Verificar si el correo existe
     const existeProducto = await Producto.findById(id);
-    if( !existeProducto ){
-        throw new Error(`El id ${id} del producto no existe`);
-    } 
+    if ( !existeProducto ) {
+        throw new Error(`El id no existe ${ id }`);
+    }
 }
+
+/**
+ * Validar colecciones permitidas
+ */
+const coleccionesPermitidas = ( coleccion = '', colecciones = []) => {
+
+    const incluida = colecciones.includes( coleccion );
+    if ( !incluida ) {
+        throw new Error(`La colección ${ coleccion } no es permitida, ${ colecciones }`);
+    }
+    return true;
+}
+
 
 module.exports = {
     esRoleValido,
     emailExiste,
     existeUsuarioPorId,
     existeCategoriaPorId,
-    existeProductoPorId
+    existeProductoPorId,
+    coleccionesPermitidas
 }
 
